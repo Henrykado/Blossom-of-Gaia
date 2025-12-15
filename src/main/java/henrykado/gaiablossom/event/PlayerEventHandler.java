@@ -27,7 +27,8 @@ public class PlayerEventHandler {
     @SubscribeEvent
     public void onPlayerAttacked(LivingAttackEvent event) {
         if (!(event.entity instanceof EntityPlayer player) || !((EntityPlayer) event.entity).isBlocking()
-            || event.source.isUnblockable()) return;
+            || event.source.isUnblockable()
+            || !Config.enableSwordParry) return;
 
         if (player.getItemInUseDuration() <= 3) {
             Entity damagingEntity = event.source.getSourceOfDamage();
@@ -79,6 +80,7 @@ public class PlayerEventHandler {
                         .getFoodLevel();
                     playerProperties.staminaTimer = resetStaminaTimer(hunger);
                     AppleCoreAPI.mutator.setHunger(player, Math.min(hunger + 1, 20));
+                    AppleCoreAPI.mutator.setExhaustion(player, 0);
                 }
             }
         }

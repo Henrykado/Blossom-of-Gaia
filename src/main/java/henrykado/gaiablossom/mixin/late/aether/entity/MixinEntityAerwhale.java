@@ -19,6 +19,6 @@ public abstract class MixinEntityAerwhale extends Entity {
 
     @Inject(method = "<init>", at = @At("TAIL"))
     public void flyHigh(World world, CallbackInfo ci) {
-        posY += 6 + world.rand.nextInt(14);
+        posY += 12 + world.rand.nextInt(14);
     }
 }

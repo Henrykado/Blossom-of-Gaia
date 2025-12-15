@@ -23,6 +23,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 
 // Taken from Tinkers Construct's code
+// Currently unused
 public class HealthBarRenderer extends Gui {
 
     private static final boolean isRpghudLoaded = Loader.isModLoaded("rpghud");

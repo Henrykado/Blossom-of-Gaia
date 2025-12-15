@@ -8,6 +8,9 @@ item.botania:ring_dodge.name=Ring of Dexterious Motion
 tile.icystone.name=Frozen Cobblestone
 tile.cobbedstone.name=Cobbedstone
 tile.log_taintwood.name=Tainted Log
+tile.towerMobSpawner.name=Battle Tower Mob Spawner
+
+tc.visdiscountGoggles=(in helmet slot)
 
 keybind.achievements=Achievements
 

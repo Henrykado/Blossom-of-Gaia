@@ -32,7 +32,7 @@ public class CommonProxy {
 
         BaubleExpandedSlots.tryAssignSlotsUpToMinimum(BaubleExpandedSlots.headType, 1);
         BaubleExpandedSlots.tryAssignSlotsUpToMinimum(BaubleExpandedSlots.bodyType, 1);
-        BaubleExpandedSlots.tryAssignSlotsUpToMinimum(BaubleExpandedSlots.charmType, 2);
+        // BaubleExpandedSlots.tryAssignSlotsUpToMinimum(BaubleExpandedSlots.charmType, 2);
 
         GaiaBlossom.LOG.info(Config.greeting);
         // GaiaBlossom.LOG.info("I am GaiaBlossom at version " + Tags.VERSION);

@@ -11,19 +11,19 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 import baubles.api.expanded.BaubleExpandedSlots;
 import henrykado.gaiablossom.util.BaublesUtils;
+import makeo.gadomancy.client.renderers.tile.RenderTileNodeBasic;
 import thaumcraft.api.nodes.IRevealer;
-import thaumcraft.client.renderers.tile.TileNodeRenderer;
 
-@Mixin(TileNodeRenderer.class)
-public class MixinTileNodeRenderer {
+@Mixin(value = RenderTileNodeBasic.class, remap = false)
+public class MixinGadomancyNodeRenderer {
 
     @ModifyArgs(
-        method = "func_147500_a",
+        method = "renderTileEntityAt(Lnet/minecraft/tileentity/TileEntity;DDDFF)V",
         at = @At(
             value = "INVOKE",
-            target = "Lthaumcraft/client/renderers/tile/TileNodeRenderer;renderNode(Lnet/minecraft/entity/EntityLivingBase;DZZFIIIFLthaumcraft/api/aspects/AspectList;Lthaumcraft/api/nodes/NodeType;Lthaumcraft/api/nodes/NodeModifier;)V"),
+            target = "Lmakeo/gadomancy/client/renderers/tile/RenderTileNodeBasic;renderNode(Lnet/minecraft/entity/EntityLivingBase;DZZFDDDFLthaumcraft/api/aspects/AspectList;Lthaumcraft/api/nodes/NodeType;Lthaumcraft/api/nodes/NodeModifier;)V"),
         remap = false)
-    private void renderNodeInject(Args args) {
+    private static void renderNodeInject(Args args) {
         EntityLivingBase viewer = args.get(0);
         boolean visible = args.get(2);
         boolean depthIgnore = args.get(3);

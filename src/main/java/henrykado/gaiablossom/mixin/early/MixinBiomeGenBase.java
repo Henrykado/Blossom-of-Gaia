@@ -2,14 +2,12 @@ package henrykado.gaiablossom.mixin.early;
 
 import java.util.List;
 
-import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.world.biome.BiomeGenBase;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.Constant;
+import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
 @Mixin(BiomeGenBase.class)
 public class MixinBiomeGenBase {
@@ -20,12 +18,8 @@ public class MixinBiomeGenBase {
     @Shadow
     protected List<BiomeGenBase.SpawnListEntry> spawnableWaterCreatureList;
 
-    @Inject(method = "<init>(IZ)V", at = @At("TAIL"))
-    public void constructorInject(int id, boolean register, CallbackInfo ci) {
-        // spawnableWaterCreatureList.clear();
-        // spawnableWaterCreatureList.add(new BiomeGenBase.SpawnListEntry(EntitySquid.class, 16, 1, 4));
-        spawnableMonsterList.remove(6); // Witch
-        spawnableMonsterList.remove(5); // Enderman
-        spawnableMonsterList.add(new BiomeGenBase.SpawnListEntry(EntityEnderman.class, 15, 1, 4));
+    @ModifyConstant(method = "<init>(IZ)V", constant = @Constant(intValue = 10, ordinal = 2))
+    public int endermanSpawnWeight(int original) {
+        return 15;
     }
 }

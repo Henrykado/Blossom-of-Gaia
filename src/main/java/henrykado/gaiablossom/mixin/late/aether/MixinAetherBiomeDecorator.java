@@ -25,7 +25,7 @@ public abstract class MixinAetherBiomeDecorator {
         if (block == BlocksAether.gravitite_ore) {
             spawnOre(block, 5, 2, 32);
             return;
-        } else if (block == BlocksAether.icestone) {
+        } else if (block == BlocksAether.icestone || block == BlocksAether.zanite_ore) {
             return;
         }
         spawnOre(block, size, chance, y);

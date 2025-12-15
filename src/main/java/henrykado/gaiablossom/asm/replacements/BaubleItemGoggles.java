@@ -2,23 +2,29 @@ package henrykado.gaiablossom.asm.replacements;
 
 import java.util.List;
 
+import henrykado.gaiablossom.util.IRenderBauble;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 
+import net.minecraftforge.client.event.RenderPlayerEvent;
 import org.lwjgl.opengl.GL11;
 
 import baubles.api.BaubleType;
 import baubles.api.expanded.BaubleExpandedSlots;
 import baubles.api.expanded.BaubleItemHelper;
 import baubles.api.expanded.IBaubleExpanded;
-import henrykado.gaiablossom.util.IRenderBauble;
+import thaumcraft.api.aspects.Aspect;
 import thaumcraft.common.items.armor.ItemGoggles;
+import vazkii.botania.api.item.IBaubleRender;
 
-public class BaubleItemGoggles extends ItemGoggles implements IBaubleExpanded, IRenderBauble {
+public class BaubleItemGoggles extends ItemGoggles implements IBaubleExpanded, IBaubleRender {
 
     public BaubleItemGoggles(ArmorMaterial enumarmormaterial, int j, int k) {
         super(enumarmormaterial, j, k);
@@ -62,25 +68,34 @@ public class BaubleItemGoggles extends ItemGoggles implements IBaubleExpanded, I
 
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List tooltip, boolean debug) {
-        super.addInformation(stack, player, tooltip, debug);
+        tooltip.add(
+            EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("tc.visdiscount")
+                + " "
+                + StatCollector.translateToLocal("tc.visdiscountGoggles")
+                + ": "
+                + this.getVisDiscount(stack, player, (Aspect) null)
+                + "%");
         BaubleItemHelper.addSlotInformation(tooltip, getBaubleTypes(stack));
     }
 
     public ModelBiped goggleModel = new ModelBiped(1.0F);
 
     @Override
-    public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
-        if (type == RenderType.HEAD) {
-            boolean armor = false;
+    public void onPlayerBaubleRender(ItemStack itemStack, RenderPlayerEvent event, RenderType renderType) {
+        if (renderType == RenderType.HEAD) {
+            EntityPlayer player = event.entityPlayer;
+
             Minecraft.getMinecraft().renderEngine
                 .bindTexture(new ResourceLocation("thaumcraft:textures/models/goggles.png"));
-            IRenderBauble.Helper.translateToHeadLevel(player);
-            IRenderBauble.Helper.translateToFace();
-            IRenderBauble.Helper.defaultTransforms();
-            GL11.glRotatef(180.0f, 0.0f, 1.0f, 0.0f);
-            GL11.glTranslated(-0.5, -0.5, armor ? 0.11999999731779099 : 0.0);
-            goggleModel.bipedHead.render(0.0625F);
-            // UtilsFX.renderTextureIn3D(0.0f, 0.0f, 1.0f, 1.0f, 16, 26, 0.1f);
+
+            GL11.glRotatef(-90, 0, 1, 0);
+            IBaubleRender.Helper.rotateIfSneaking(player);
+            goggleModel.isRiding = player.isRiding();
+            //GL11.glTranslated(-0.5, -0.5, armor ? 0.11999999731779099 : 0.0);
+            float scale = player.inventory.armorInventory[3] != null ? 0.07F : 0.0625F;
+
+            GL11.glTranslated(0.0F, (player.isSneaking() ? scale : 0.0) + 0.025F, 0.0F);
+            goggleModel.bipedHead.render(scale);
         }
     }
 }

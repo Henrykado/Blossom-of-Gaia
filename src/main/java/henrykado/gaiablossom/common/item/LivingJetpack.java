@@ -2,6 +2,7 @@ package henrykado.gaiablossom.common.item;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemArmor;
@@ -11,7 +12,6 @@ import net.minecraft.world.World;
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
 import cpw.mods.fml.common.registry.GameRegistry;
-import henrykado.gaiablossom.CustomCreativeTab;
 import henrykado.gaiablossom.GaiaBlossom;
 
 public class LivingJetpack extends ItemArmor implements IBauble {
@@ -19,7 +19,7 @@ public class LivingJetpack extends ItemArmor implements IBauble {
     public LivingJetpack() {
         super(ArmorMaterial.CHAIN, 2, 1);
         String uniqueName = GaiaBlossom.MODID + ":living_jetpack";
-        this.setCreativeTab(CustomCreativeTab.INSTANCE);
+        this.setCreativeTab(CreativeTabs.tabCombat);
         this.setUnlocalizedName(uniqueName);
         this.setTextureName(uniqueName);
         GameRegistry.registerItem(this, uniqueName);

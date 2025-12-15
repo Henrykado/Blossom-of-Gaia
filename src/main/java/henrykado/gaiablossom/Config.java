@@ -10,6 +10,11 @@ public class Config {
     public static String greeting = "Hello World";
     public static int swamplandWaterColorOverride = 4718414;
 
+    public static boolean showAchievementsInventoryButton = true;
+    public static boolean enableSwordParry = true;
+
+    public static boolean slowerCropGrowth = true;
+
     public static boolean enableStaminaSystem = true;
     public static float healMultiplier = 1.0f;
     public static String[] foodHealValues = new String[] {};
@@ -37,6 +42,12 @@ public class Config {
             Configuration.CATEGORY_GENERAL,
             true,
             "Enable or disable the hunger rework / stamina system");
+
+        slowerCropGrowth = configuration.getBoolean(
+            "slowerCropGrowth",
+            Configuration.CATEGORY_GENERAL,
+            true,
+            "Enable to halve the speed crops grow");
 
         healMultiplier = configuration
             .getFloat("healingFoodMultiplier", Configuration.CATEGORY_GENERAL, 1.0f, 0.0f, 5.0f, "");

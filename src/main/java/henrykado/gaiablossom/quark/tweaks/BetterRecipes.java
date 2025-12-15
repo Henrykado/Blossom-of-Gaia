@@ -96,6 +96,8 @@ public class BetterRecipes {
             if (ingredient instanceof ArrayList<?>) {
                 Object[] matches = ((ArrayList<?>) ingredient).toArray();
                 if (matches.length > 0 && matches[0] instanceof ItemStack match) recipeItem = match;
+            } else if (ingredient instanceof ItemStack) {
+                recipeItem = (ItemStack) ingredient;
             }
 
             if (recipeItem != null) {

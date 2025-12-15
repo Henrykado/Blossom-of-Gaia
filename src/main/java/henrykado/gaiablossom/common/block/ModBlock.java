@@ -4,19 +4,22 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import henrykado.gaiablossom.CustomCreativeTab;
+import henrykado.gaiablossom.common.block.tile.TileEntityMobSpawnerTower;
 
 public class ModBlock extends Block {
 
     public static Block blockTaintLog;
+    public static Block blockTowerSpawner;
 
     public static void registerEmBlocks() {
+        GameRegistry.registerTileEntity(TileEntityMobSpawnerTower.class, "gaiablossom:towerMobSpawner");
+
         blockTaintLog = new BlockTaintLog();
+        blockTowerSpawner = new BlockMobSpawnerTower();
     }
 
     public ModBlock(Material par2Material) {
         super(par2Material);
-        this.setCreativeTab(CustomCreativeTab.INSTANCE);
     }
 
     @Override
