@@ -1,2 +1,2 @@
-# Blossom of Gaia
-Core mod for Gaia's Blossom Modpack
+# GaiaTweaks
+Tweaks and bugfixes made for the Blossom of Gaia modpack
