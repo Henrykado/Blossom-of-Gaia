@@ -20,9 +20,8 @@ import baubles.api.expanded.BaubleItemHelper;
 import baubles.api.expanded.IBaubleExpanded;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.common.items.armor.ItemGoggles;
-import vazkii.botania.api.item.IBaubleRender;
 
-public class BaubleItemGoggles extends ItemGoggles implements IBaubleExpanded, IBaubleRender {
+public class BaubleItemGoggles extends ItemGoggles implements IBaubleExpanded {
 
     public BaubleItemGoggles(ArmorMaterial enumarmormaterial, int j, int k) {
         super(enumarmormaterial, j, k);
@@ -30,7 +29,6 @@ public class BaubleItemGoggles extends ItemGoggles implements IBaubleExpanded, I
 
     @Override
     public String[] getBaubleTypes(ItemStack itemstack) {
-
         return new String[] { BaubleExpandedSlots.headType };
     }
 
@@ -78,22 +76,21 @@ public class BaubleItemGoggles extends ItemGoggles implements IBaubleExpanded, I
 
     public ModelBiped goggleModel = new ModelBiped(1.0F);
 
-    @Override
-    public void onPlayerBaubleRender(ItemStack itemStack, RenderPlayerEvent event, RenderType renderType) {
-        if (renderType == RenderType.HEAD) {
-            EntityPlayer player = event.entityPlayer;
+    public void onPlayerBaubleRender(ItemStack itemStack, RenderPlayerEvent event) {
+        EntityPlayer player = event.entityPlayer;
 
-            Minecraft.getMinecraft().renderEngine
-                .bindTexture(new ResourceLocation("thaumcraft:textures/models/goggles.png"));
+        Minecraft.getMinecraft().renderEngine
+            .bindTexture(new ResourceLocation("thaumcraft:textures/models/goggles.png"));
 
-            GL11.glRotatef(-90, 0, 1, 0);
-            IBaubleRender.Helper.rotateIfSneaking(player);
-            goggleModel.isRiding = player.isRiding();
-            // GL11.glTranslated(-0.5, -0.5, armor ? 0.11999999731779099 : 0.0);
-            float scale = player.inventory.armorInventory[3] != null ? 0.07F : 0.0625F;
-
-            GL11.glTranslated(0.0F, (player.isSneaking() ? scale : 0.0) + 0.025F, 0.0F);
-            goggleModel.bipedHead.render(scale);
+        GL11.glRotatef(-90, 0, 1, 0);
+        if (player.isSneaking()) {
+            GL11.glRotatef(28.64789F, 1.0F, 0.0F, 0.0F);
         }
+        goggleModel.isRiding = player.isRiding();
+        // GL11.glTranslated(-0.5, -0.5, armor ? 0.11999999731779099 : 0.0);
+        float scale = player.inventory.armorInventory[3] != null ? 0.07F : 0.0625F;
+
+        GL11.glTranslated(0.0F, (player.isSneaking() ? scale : 0.0) + 0.025F, 0.0F);
+        goggleModel.bipedHead.render(scale);
     }
 }

@@ -6,8 +6,7 @@ import net.minecraft.world.World;
 
 import org.spongepowered.asm.mixin.Mixin;
 
-import com.gildedgames.the_aether.AetherConfig;
-
+import cpw.mods.fml.common.Loader;
 import twilightforest.TwilightForestMod;
 
 @Mixin(EntityRocketCreeper.class)
@@ -19,7 +18,7 @@ public abstract class MixinRocketCreeper extends EntityMob {
 
     @Override
     public boolean getCanSpawnHere() {
-        if (this.dimension == AetherConfig.getAetherDimensionID() || this.dimension == TwilightForestMod.dimensionID) {
+        if (Loader.isModLoaded("TwilightForest") && this.dimension == TwilightForestMod.dimensionID) {
             return false;
         }
         return this.worldObj.isRaining() && super.getCanSpawnHere();

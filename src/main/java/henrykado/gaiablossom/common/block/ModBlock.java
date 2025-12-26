@@ -14,7 +14,7 @@ public class ModBlock extends Block {
     public static Block blockTowerSpawner;
 
     public static void registerEmBlocks() {
-        if (Loader.isModLoaded("Thaumcraft")) {
+        if (Loader.isModLoaded("Thaumcraft") && Config.taintedTrees) {
             blockTaintLog = new BlockTaintLog();
         }
 

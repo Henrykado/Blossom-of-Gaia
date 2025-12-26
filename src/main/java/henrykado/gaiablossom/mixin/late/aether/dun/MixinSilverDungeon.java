@@ -43,9 +43,9 @@ public class MixinSilverDungeon {
                 return new ItemStack(ItemsAether.valkyrie_helmet);
             case 3:
                 return new ItemStack(ItemsAether.regeneration_stone);
-            case 4: case 6:
-                if (random.nextBoolean())
-                    return new ItemStack(ModItems.dodgeRing);
+            case 4:
+            case 6:
+                if (random.nextBoolean()) return new ItemStack(ModItems.dodgeRing);
 
                 return new ItemStack(ModItems.cloudPendant);
             case 5:

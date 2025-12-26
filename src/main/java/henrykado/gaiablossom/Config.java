@@ -34,10 +34,11 @@ public class Config {
     public static int battleTowerGolemExtraDrops = 2;
     public static boolean aetherBaubles = true;
     public static boolean aetherMasterToggle = true;
-    public static boolean gogglesOfRevealingBauble = true; //
-    public static boolean nodeOreInfusion = true; //
+    public static boolean gogglesOfRevealingBauble = true;
+    public static boolean nodeOreInfusion = true;
+    public static boolean taintedTrees = true;
     public static boolean tweakedAetherLoot = true;
-    public static boolean removeHammerzTorchPlacing = true; //
+    public static boolean removeHammerzTorchPlacing = true;
 
     public static void synchronizeConfiguration(File configFile) {
         Configuration configuration = new Configuration(configFile);
@@ -156,6 +157,12 @@ public class Config {
             "modded",
             true,
             "Makes the Goggles of Revealing from TC4 wearable as a bauble");
+
+        taintedTrees = configuration.getBoolean(
+            "taintedTrees",
+            "modded",
+            true,
+            "Enables the generation of tainted trees in the Tainted Lands biome, as well as the Tainted Log block");
 
         nodeOreInfusion = configuration.getBoolean(
             "nodeOreInfusion",

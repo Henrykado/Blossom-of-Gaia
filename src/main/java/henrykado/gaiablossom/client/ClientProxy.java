@@ -4,6 +4,7 @@ import net.minecraftforge.common.MinecraftForge;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -11,6 +12,7 @@ import henrykado.gaiablossom.CommonProxy;
 import henrykado.gaiablossom.Config;
 import henrykado.gaiablossom.client.event.AccessoryButtonRemover;
 import henrykado.gaiablossom.client.event.AchievementKeyHandler;
+import henrykado.gaiablossom.client.event.BaubleRenderer;
 import henrykado.gaiablossom.client.gui.AchievementTab;
 import henrykado.gaiablossom.client.render.TileEntityMobSpawnerTowerRenderer;
 import henrykado.gaiablossom.common.block.tile.TileEntityMobSpawnerTower;
@@ -39,6 +41,10 @@ public class ClientProxy extends CommonProxy {
          * }
          */
 
+        if (Loader.isModLoaded("Baubles") && Loader.isModLoaded("Thaumcraft") && Config.gogglesOfRevealingBauble) {
+            MinecraftForge.EVENT_BUS.register(new BaubleRenderer());
+        }
+
         FMLCommonHandler.instance()
             .bus()
             .register(new AchievementKeyHandler());
@@ -53,7 +59,9 @@ public class ClientProxy extends CommonProxy {
     public void postInit(FMLPostInitializationEvent event) {
         super.postInit(event);
 
-        MinecraftForge.EVENT_BUS.register(new AccessoryButtonRemover());
+        if (Loader.isModLoaded("aether_legacy")) {
+            MinecraftForge.EVENT_BUS.register(new AccessoryButtonRemover());
+        }
         // MinecraftForge.EVENT_BUS.register(new RenderEventHandler());
 
         if (Config.showAchievementsInventoryButton) MinecraftForge.EVENT_BUS.register(new AchievementTab());

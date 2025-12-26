@@ -8,7 +8,9 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 
+import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.eventhandler.Event;
+import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import henrykado.gaiablossom.Config;
 import henrykado.gaiablossom.common.entity.eep.GaiaPlayer;
@@ -134,11 +136,17 @@ public class PlayerEventHandler {
 
     @SubscribeEvent
     public void disableStarvation(StarvationEvent.AllowStarvation event) {
-        if (event.player.isPotionActive(PotionUnnaturalHunger.instance) || !Config.enableStaminaSystem) {
+        event.setResult(Config.enableStaminaSystem ? Event.Result.DENY : Event.Result.DEFAULT);
+    }
+
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    @Optional.Method(modid = "Thaumcraft")
+    public void disableStarvationTC(StarvationEvent.AllowStarvation event) {
+        if (event.player.isPotionActive(PotionUnnaturalHunger.instance)) {
             event.setResult(Event.Result.DEFAULT);
-            return;
+        } else {
+            event.setResult(Config.enableStaminaSystem ? Event.Result.DENY : Event.Result.DEFAULT);
         }
-        event.setResult(Event.Result.DENY);
     }
 
     /*

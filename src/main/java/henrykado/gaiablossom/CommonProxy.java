@@ -7,6 +7,7 @@ import net.minecraft.world.gen.structure.MapGenVillage;
 import net.minecraftforge.common.MinecraftForge;
 
 import baubles.api.expanded.BaubleExpandedSlots;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -32,8 +33,11 @@ public class CommonProxy {
         // ModItems.init();
         ModBlock.registerEmBlocks();
 
-        BaubleExpandedSlots.tryAssignSlotsUpToMinimum(BaubleExpandedSlots.headType, 1);
-        BaubleExpandedSlots.tryAssignSlotsUpToMinimum(BaubleExpandedSlots.bodyType, 1);
+        if (Loader.isModLoaded("Baubles")) {
+            if (Config.gogglesOfRevealingBauble)
+                BaubleExpandedSlots.tryAssignSlotsUpToMinimum(BaubleExpandedSlots.headType, 1);
+            if (Config.aetherBaubles) BaubleExpandedSlots.tryAssignSlotsUpToMinimum(BaubleExpandedSlots.bodyType, 1);
+        }
 
         MinecraftForge.EVENT_BUS.register(new ExtendedPropertiesHandler());
         MinecraftForge.EVENT_BUS.register(new AnvilEventHandler());
