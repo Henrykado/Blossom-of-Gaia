@@ -1,20 +1,22 @@
 package henrykado.gaiablossom.mixin.late;
 
-import net.minecraft.world.World;
-
-import org.dimdev.dimdoors.world.gateways.BaseGateway;
+import org.dimdev.dimdoors.config.DimensionFilter;
+import org.dimdev.dimdoors.world.gateways.GatewayGenerator;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.Redirect;
 
-@Mixin(BaseGateway.class)
+@Mixin(GatewayGenerator.class)
 public abstract class MixinDMGateway {
 
-    @Inject(method = "isLocationValid", at = @At("HEAD"), cancellable = true, remap = false)
-    public void isLocationValidInject(World world, int x, int y, int z, CallbackInfoReturnable<Boolean> cir) {
-        if (world.provider.dimensionId != 0) {
-            cir.setReturnValue(false);
+    @Redirect(
+        method = "generate",
+        at = @At(value = "INVOKE", target = "Lorg/dimdev/dimdoors/config/DimensionFilter;isAccepted(I)Z"),
+        remap = false)
+    public boolean dimensionBlacklistInject(DimensionFilter instance, int dimensionID) {
+        if (dimensionID != 0) {
+            return false;
         }
+        return instance.isAccepted(dimensionID);
     }
 }

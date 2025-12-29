@@ -33,7 +33,7 @@ public class BaubleRenderer {
         // dispatchRenders(inv, event, RenderType.HEAD);
         for (int slot : BaubleExpandedSlots.getIndexesOfAssignedSlotsOfType(BaubleExpandedSlots.headType)) {
             ItemStack stack = inv.getStackInSlot(slot);
-            if (stack.getItem() instanceof BaubleItemGoggles) {
+            if (stack != null && stack.getItem() instanceof BaubleItemGoggles) {
                 GL11.glPushMatrix();
                 GL11.glRotatef(yawOffset, 0, -1, 0);
                 GL11.glRotatef(yaw - 270, 0, 1, 0);

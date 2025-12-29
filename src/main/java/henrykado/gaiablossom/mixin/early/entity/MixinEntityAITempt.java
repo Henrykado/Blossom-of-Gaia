@@ -8,6 +8,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import henrykado.gaiablossom.Config;
+
 @Mixin(EntityAITempt.class)
 public class MixinEntityAITempt {
 
@@ -16,6 +18,6 @@ public class MixinEntityAITempt {
 
     @Inject(method = "resetTask", at = @At(value = "TAIL"))
     public void resetTaskInject(CallbackInfo ci) {
-        delayTemptCounter = 30;
+        delayTemptCounter = Config.animalTemptDelay;
     }
 }

@@ -13,6 +13,8 @@ import com.gildedgames.the_aether.AetherConfig;
 import com.gildedgames.the_aether.entities.passive.EntityAetherAnimal;
 import com.gildedgames.the_aether.entities.passive.mountable.EntityAerbunny;
 
+import henrykado.gaiablossom.Config;
+
 @Mixin(EntityAerbunny.class)
 public abstract class MixinEntityAerbunny extends EntityAetherAnimal {
 
@@ -25,7 +27,9 @@ public abstract class MixinEntityAerbunny extends EntityAetherAnimal {
         at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;spawnParticle(Ljava/lang/String;DDDDDD)V"))
     public void spawnSmokeParticleRedirect(World instance, String s, double x, double y, double z, double vx, double vy,
         double vz) {
-        return;
+        if (Config.aerbunnySmokeParticles) {
+            instance.spawnParticle(s, x, y, z, vx, vy, vz);
+        }
     }
 
     @Shadow
@@ -33,7 +37,7 @@ public abstract class MixinEntityAerbunny extends EntityAetherAnimal {
 
     @Inject(method = "onLivingUpdate", at = @At("HEAD"))
     public void onLivingUpdateInject(CallbackInfo ci) {
-        if (this.dimension != AetherConfig.getAetherDimensionID()) {
+        if (this.dimension != AetherConfig.getAetherDimensionID() && Config.aerbunnyAetherOnly) {
             this.spawnExplosionParticle();
             this.setDead();
         }

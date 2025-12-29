@@ -14,12 +14,9 @@ import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.TypeInsnNode;
 
-import com.gildedgames.the_aether.entities.bosses.valkyrie_queen.EntityValkyrieQueen;
-
 import henrykado.gaiablossom.asm.replacements.BaubleItemAccessory;
 import henrykado.gaiablossom.asm.replacements.BaubleItemAccessoryDyed;
 import henrykado.gaiablossom.asm.replacements.BaubleItemGoggles;
-import henrykado.gaiablossom.asm.replacements.valkyrie.NewEntityValkyrieQueen;
 import scala.tools.asm.Opcodes;
 import thaumcraft.common.items.armor.ItemGoggles;
 
@@ -66,23 +63,23 @@ public class ClassTransformer implements IClassTransformer {
 
                 return writeClass(classNode);
             }
-            case "com.gildedgames.the_aether.entities.EntitiesAether" -> {
-                ClassNode classNode = new ClassNode();
-                new ClassReader(basicClass).accept(classNode, ClassReader.SKIP_FRAMES);
-
-                for (MethodNode method : classNode.methods) {
-                    if (method.name.equals("initialization")) {
-                        for (AbstractInsnNode node : method.instructions.toArray()) {
-                            tryReplaceInstance(
-                                node,
-                                Type.getInternalName(EntityValkyrieQueen.class),
-                                Type.getInternalName(NewEntityValkyrieQueen.class));
-                        }
-                    }
-                }
-
-                return writeClass(classNode);
-            }
+            /*
+             * case "com.gildedgames.the_aether.entities.EntitiesAether" -> {
+             * ClassNode classNode = new ClassNode();
+             * new ClassReader(basicClass).accept(classNode, ClassReader.SKIP_FRAMES);
+             * for (MethodNode method : classNode.methods) {
+             * if (method.name.equals("initialization")) {
+             * for (AbstractInsnNode node : method.instructions.toArray()) {
+             * tryReplaceInstance(
+             * node,
+             * Type.getInternalName(EntityValkyrieQueen.class),
+             * Type.getInternalName(NewEntityValkyrieQueen.class));
+             * }
+             * }
+             * }
+             * return writeClass(classNode);
+             * }
+             */
             case "thaumcraft.common.config.ConfigItems" -> {
                 ClassNode classNode = new ClassNode();
                 new ClassReader(basicClass).accept(classNode, ClassReader.SKIP_FRAMES);

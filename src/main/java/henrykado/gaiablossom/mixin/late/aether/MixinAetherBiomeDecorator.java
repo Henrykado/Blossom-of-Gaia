@@ -10,6 +10,8 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import com.gildedgames.the_aether.blocks.BlocksAether;
 import com.gildedgames.the_aether.world.biome.AetherBiomeDecorator;
 
+import henrykado.gaiablossom.Config;
+
 @Mixin(AetherBiomeDecorator.class)
 public abstract class MixinAetherBiomeDecorator {
 
@@ -23,11 +25,19 @@ public abstract class MixinAetherBiomeDecorator {
             target = "Lcom/gildedgames/the_aether/world/biome/AetherBiomeDecorator;spawnOre(Lnet/minecraft/block/Block;III)V"))
     public void spawnOreRedirect(AetherBiomeDecorator instance, Block block, int size, int chance, int y) {
         if (block == BlocksAether.gravitite_ore) {
-            spawnOre(block, 5, 2, 32);
-            return;
-        } else if (block == BlocksAether.icestone || block == BlocksAether.zanite_ore) {
-            return;
+            if (Config.gravititeOreSize == 0 || Config.gravititeOreChance == 0) return;
+            spawnOre(block, Config.gravititeOreSize, Config.gravititeOreChance, Config.gravititeOreMaxY);
+        } else if (block == BlocksAether.zanite_ore) {
+            if (Config.zaniteOreSize == 0 || Config.zaniteOreChance == 0) return;
+            spawnOre(block, Config.zaniteOreSize, Config.zaniteOreChance, Config.zaniteOreMaxY);
+        } else if (block == BlocksAether.ambrosium_ore) {
+            if (Config.ambrosiumOreSize == 0 || Config.ambrosiumOreChance == 0) return;
+            spawnOre(block, Config.ambrosiumOreSize, Config.ambrosiumOreChance, Config.ambrosiumOreMaxY);
+        } else if (block == BlocksAether.icestone) {
+            if (Config.icestoneSize == 0 || Config.icestoneChance == 0) return;
+            spawnOre(block, Config.icestoneSize, Config.icestoneChance, Config.icestoneMaxY);
+        } else {
+            spawnOre(block, size, chance, y);
         }
-        spawnOre(block, size, chance, y);
     }
 }

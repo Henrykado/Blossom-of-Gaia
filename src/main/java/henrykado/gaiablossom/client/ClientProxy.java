@@ -41,7 +41,7 @@ public class ClientProxy extends CommonProxy {
          * }
          */
 
-        if (Loader.isModLoaded("Baubles") && Loader.isModLoaded("Thaumcraft") && Config.gogglesOfRevealingBauble) {
+        if (Loader.isModLoaded("Thaumcraft") && Config.gogglesOfRevealingBauble) {
             MinecraftForge.EVENT_BUS.register(new BaubleRenderer());
         }
 

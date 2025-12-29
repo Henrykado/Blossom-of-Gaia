@@ -15,7 +15,7 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
     version = Tags.VERSION,
     name = "Blossom of Gaia",
     acceptedMinecraftVersions = "[1.7.10]",
-    dependencies = "required-after:unimixins;required-after:AppleCore")
+    dependencies = "required-after:unimixins")
 public class GaiaBlossom {
 
     public static final String MODID = "gaiablossom";

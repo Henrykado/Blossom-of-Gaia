@@ -6,8 +6,7 @@ import net.minecraft.world.World;
 
 import org.spongepowered.asm.mixin.Mixin;
 
-import cpw.mods.fml.common.Loader;
-import twilightforest.TwilightForestMod;
+import henrykado.gaiablossom.Config;
 
 @Mixin(EntityRocketCreeper.class)
 public abstract class MixinRocketCreeper extends EntityMob {
@@ -18,9 +17,12 @@ public abstract class MixinRocketCreeper extends EntityMob {
 
     @Override
     public boolean getCanSpawnHere() {
-        if (Loader.isModLoaded("TwilightForest") && this.dimension == TwilightForestMod.dimensionID) {
+        if (this.dimension != 0 && Config.overworldOnlyPrimitiveMonsters) {
             return false;
         }
-        return this.worldObj.isRaining() && super.getCanSpawnHere();
+        if (!this.worldObj.isRaining() && Config.rocketCreeperRainSpawn) {
+            return false;
+        }
+        return super.getCanSpawnHere();
     }
 }

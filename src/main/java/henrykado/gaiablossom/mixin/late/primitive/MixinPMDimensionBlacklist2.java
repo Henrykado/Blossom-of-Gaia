@@ -10,10 +10,6 @@ import net.minecraft.world.World;
 
 import org.spongepowered.asm.mixin.Mixin;
 
-import com.gildedgames.the_aether.AetherConfig;
-
-import twilightforest.TwilightForestMod;
-
 @Mixin(
     value = { EntityFestiveCreeper.class, EntitySupportCreeper.class, EntityHauntedTool.class,
         EntityDSkeletonWarrior.class, EntityMotherSpider.class })
@@ -25,7 +21,7 @@ public abstract class MixinPMDimensionBlacklist2 extends EntityLiving {
 
     @Override
     public boolean getCanSpawnHere() {
-        if (this.dimension == AetherConfig.getAetherDimensionID() || this.dimension == TwilightForestMod.dimensionID) {
+        if (this.dimension != 0) {
             return false;
         }
 

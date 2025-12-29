@@ -14,6 +14,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import henrykado.gaiablossom.common.block.ModBlock;
 import henrykado.gaiablossom.common.entity.eep.ExtendedPropertiesHandler;
 import henrykado.gaiablossom.event.AnvilEventHandler;
+import henrykado.gaiablossom.event.AppleCoreEventHandler;
 import henrykado.gaiablossom.event.PlayerEventHandler;
 import henrykado.gaiablossom.event.WorldEventHandler;
 import henrykado.gaiablossom.network.GaiaPacketHandler;
@@ -26,7 +27,7 @@ public class CommonProxy {
     // preInit "Run before anything else. Read your config, create blocks, items, etc, and register them with the
     // GameRegistry." (Remove if not needed)
     public void preInit(FMLPreInitializationEvent event) {
-        Config.synchronizeConfiguration(event.getSuggestedConfigurationFile());
+        // Config.synchronizeConfiguration(event.getSuggestedConfigurationFile());
 
         if (Config.disableVillages) MapGenVillage.villageSpawnBiomes = Arrays.asList(new BiomeGenBase[] {});
 
@@ -45,6 +46,9 @@ public class CommonProxy {
         MinecraftForge.ORE_GEN_BUS.register(new WorldEventHandler());
 
         MinecraftForge.EVENT_BUS.register(new PlayerEventHandler());
+        if (Loader.isModLoaded("AppleCore")) {
+            MinecraftForge.EVENT_BUS.register(new AppleCoreEventHandler());
+        }
 
         Quark.preInit();
 

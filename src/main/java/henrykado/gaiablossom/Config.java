@@ -10,18 +10,21 @@ public class Config {
     public static int swamplandWaterColorOverride = 4718414;
 
     public static boolean showAchievementsInventoryButton = true;
+    public static boolean renderSkeletonChargingBow = true; //
+    public static int animalTemptDelay = 30; // 100 by default
     public static boolean enableSwordParry = true;
-    public static boolean disableVillages = true;
+    public static boolean disableVillages = false;
     public static boolean enableFasterLadders = true;
-    public static boolean slowerCropGrowth = true;
+    public static boolean itemFrame45Degrees = true; //
 
-    public static boolean enableStaminaSystem = true;
-    public static boolean scarceMeat = true;
+    public static boolean slowerCropGrowth = false;
+    public static boolean enableStaminaSystem = false;
+    public static boolean scarceMeat = false;
     public static float healMultiplier = 1.0f;
     public static String[] foodHealValues = new String[] {};
-    public static String[] foodBuffs = new String[] { "golden_carrot:16:12", "baked_potato:5:8", "cookie:1:7",
-        "etfuturum.honey_bottle:1:15", "pumpkin_pie:10:2", "mushroom_stew:10:5", "etfuturum.rabbit_stew:8:12" };
-    public static String[] fastFood = new String[] { "melon", "spider_eye", "etfuturum.sweet_berries" };
+    public static String[] foodBuffs = new String[] { "golden_carrot:16:12", "baked_potato:5:6", "cookie:1:7",
+        "etfuturum.honey_bottle:1:15", "pumpkin_pie:11:6", "mushroom_stew:10:5", "etfuturum.rabbit_stew:8:12" };
+    public static String[] fastFood = new String[] { "melon", "spider_eye" };
 
     public static int endermanSpawnWeight = 15;
     public static boolean swampOnlyWitches = true;
@@ -32,13 +35,46 @@ public class Config {
     public static boolean removeNetherBattleTower = true;
     public static int battleTowerGolemDrops = 2;
     public static int battleTowerGolemExtraDrops = 2;
+
     public static boolean aetherBaubles = true;
-    public static boolean aetherMasterToggle = true;
-    public static boolean gogglesOfRevealingBauble = true;
+    public static boolean aerbunnyAetherOnly = true;
+    public static boolean aerbunnySmokeParticles = false;
+    public static boolean silentValkyries = false;
+    public static boolean tweakedAetherLoot = true;
+    public static boolean nerfSentryBoots = false;
+    public static boolean moasDropEggs = false;
+    public static boolean lessGoldenAmberDrops = true;
+    public static int ambrosiumStackSize = 8;
+
+    public static int gravititeOreSize = 6; // change to 5
+    public static int gravititeOreChance = 8; // change to 2
+    public static int gravititeOreMaxY = 32;
+    public static int zaniteOreSize = 8;
+    public static int zaniteOreChance = 12;
+    public static int zaniteOreMaxY = 64;
+    public static int ambrosiumOreSize = 16;
+    public static int ambrosiumOreChance = 15;
+    public static int ambrosiumOreMaxY = 128;
+    public static int icestoneSize = 16;
+    public static int icestoneChance = 10;
+    public static int icestoneMaxY = 128;
+
     public static boolean nodeOreInfusion = true;
     public static boolean taintedTrees = true;
-    public static boolean tweakedAetherLoot = true;
+    public static boolean gogglesOfRevealingBauble = true;
+    public static boolean thaumometerIgnoresItemFrame = true;
+    public static boolean overworldOnlyGreatwood = true;
+    public static boolean removeHarnessModel = false;
+    public static boolean infernalFurnaceSteel = true;
+    public static String[] greatwoodBiomeIDBlacklist = { "29" };
+
+    public static boolean rocketCreeperRainSpawn = false;
+    public static boolean overworldOnlyDimensionalDoors = true;
+    public static boolean overworldOnlyPrimitiveMonsters = true;
+    public static boolean removePrimitiveMobsAchievements = false;
+    public static boolean replaceAetherMimic = false;
     public static boolean removeHammerzTorchPlacing = true;
+    public static boolean shearNetherRoots = true;
 
     public static void synchronizeConfiguration(File configFile) {
         Configuration configuration = new Configuration(configFile);
@@ -53,9 +89,6 @@ public class Config {
          * "");
          */
 
-        enableStaminaSystem = configuration
-            .getBoolean("enableStaminaSystem", Configuration.CATEGORY_GENERAL, true, "Enables the new stamina system");
-
         enableSwordParry = configuration.getBoolean(
             "enableSwordParry",
             Configuration.CATEGORY_GENERAL,
@@ -69,7 +102,7 @@ public class Config {
             "Enables ladder climbing being faster when looking upwards");
 
         disableVillages = configuration
-            .getBoolean("disableVillages", Configuration.CATEGORY_GENERAL, true, "Disables village generation");
+            .getBoolean("disableVillages", Configuration.CATEGORY_GENERAL, false, "Disables village generation");
 
         swampOnlyWitches = configuration.getBoolean(
             "swampOnlyWitches",
@@ -80,29 +113,34 @@ public class Config {
         endermanSpawnWeight = configuration.getInt(
             "endermanSpawnWeight",
             Configuration.CATEGORY_GENERAL,
-            15,
+            10,
             0,
             Integer.MAX_VALUE,
-            "Changes how often Enderman spawn");
+            "Changes how often Endermen spawn");
 
         netherMovementFactor = configuration.get(
             Configuration.CATEGORY_GENERAL,
             "netherMovementFactor",
-            1.0D,
-            "How much moving one block in the Nether be equivalent to in the Overworld. Vanilla is 8.0",
+            8.0D,
+            "How much moving one block in the Nether be equivalent to in the Overworld",
             1.0D,
             100.0D);
 
-        scarceMeat = configuration.getBoolean("scarceMeat", "hunger", true, "Slower egg drops and cows drop less beef");
+        enableStaminaSystem = configuration
+            .getBoolean("enableStaminaSystem", "hunger", false, "Enables the new stamina system");
+
+        scarceMeat = configuration
+            .getBoolean("scarceMeat", "hunger", false, "Slower egg drops and cows drop less beef");
 
         slowerCropGrowth = configuration
-            .getBoolean("slowerCropGrowth", "hunger", true, "Enable to halve the speed crops grow at");
+            .getBoolean("slowerCropGrowth", "hunger", false, "Enable to halve the speed crops grow at");
 
         healMultiplier = configuration
-            .getFloat("healingFoodMultiplier", "hunger", 1.0f, 0.0f, 5.0f, "Requires enableStaminaSystem");
+            .getFloat("healingFoodMultiplier", "hunger", 1.0f, 0.0f, 10.0f, "Requires enableStaminaSystem");
 
         foodHealValues = configuration
             .getStringList("foodHealValues", "hunger", foodHealValues, "Requires enableStaminaSystem\nItem:healAmount");
+
         foodBuffs = configuration.getStringList(
             "foodBuffs",
             "hunger",
@@ -111,70 +149,198 @@ public class Config {
                 + "1-speed; 2-slowness; 3-haste; 4-fatigue; 5-strength; 6-heal; 7-hurt; 8-jump; 9-confusion;\n"
                 + "10-regen; 11-resistance; 12-fire; 13-water; 14-invisibility; 15-blindness;\n"
                 + "16-night; 17-hunger; 18-weakness; 19-poison; 20-wither; 22-absorption");
+
         fastFood = configuration.getStringList("fastFood", "hunger", fastFood, "food that is eaten twice as fast");
 
-        showAchievementsInventoryButton = configuration
-            .getBoolean("showAchievementsInventoryButton", "client", true, "");
+        showAchievementsInventoryButton = configuration.getBoolean(
+            "showAchievementsInventoryButton",
+            Configuration.CATEGORY_GENERAL,
+            true,
+            "Whether to add a button to the inventory that shows the Achievements menu");
+
+        itemFrame45Degrees = configuration.getBoolean(
+            "itemFrame45Degrees",
+            Configuration.CATEGORY_GENERAL,
+            true,
+            "Backports 1.8 item frame functionality. Corporea compatible");
+
+        renderSkeletonChargingBow = configuration.getBoolean(
+            "renderSkeletonChargingBow",
+            Configuration.CATEGORY_GENERAL,
+            true,
+            "Skeletons will now visually pull their arrows before shooting, like in 1.8+");
+
+        animalTemptDelay = configuration.getInt(
+            "animalTemptDelay",
+            Configuration.CATEGORY_GENERAL,
+            30,
+            0,
+            Integer.MAX_VALUE,
+            "The amount of ticks it takes for an animal to be tempted by food again after you switch to another item. Vanilla is 100");
 
         betterBattleTowerSpawner = configuration.getBoolean(
             "betterBattleTowerSpawner",
-            "modded",
+            "battletowers",
             true,
             "Makes the Battle Towers mod use a custom mob spawner that destroys itself after a certain amount of spawns, and that has a lower spawn range");
 
         removeNetherBattleTower = configuration.getBoolean(
             "removeNetherBattleTower",
-            "modded",
+            "battletowers",
             true,
             "Removes the nether battle tower and prevents battle towers from generating outside the overworld");
 
         battleTowerGolemDrops = configuration.getInt(
             "battleTowerGolemDrops",
-            "modded",
+            "battletowers",
             2,
             0,
             Integer.MAX_VALUE,
             "How much of each item will BT's golem drop");
+
         battleTowerGolemExtraDrops = configuration.getInt(
             "battleTowerGolemExtraDrops",
-            "modded",
+            "battletowers",
             2,
             0,
             Integer.MAX_VALUE,
             "How many extra items will Bt's golem drop (random amount from 0 to this value)");
 
         tweakedAetherLoot = configuration
-            .getBoolean("tweakedAetherLoot", "modded", false, "Requires my fork of Botania to work");
+            .getBoolean("tweakedAetherLoot", "aether", false, "Requires my fork of Botania to work");
 
         aetherBaubles = configuration
-            .getBoolean("aetherBaubles", "modded", true, "Replace Aether's accessories system with Baubles");
+            .getBoolean("aetherBaubles", "aether", true, "Replace Aether's accessories system with Baubles");
 
-        aetherMasterToggle = configuration
-            .getBoolean("aetherMasterToggle", "modded", true, "Enables all other Aether tweaks");
+        aerbunnyAetherOnly = configuration
+            .getBoolean("aerbunnyAetherOnly", "aether", true, "Aerbunnies will despawn outside the Aether dimension");
+
+        aerbunnySmokeParticles = configuration.getBoolean(
+            "aerbunnySmokeParticles",
+            "aether",
+            false,
+            "Whether aerbunnies spawn black smoke particles when on a player's head");
+
+        silentValkyries = configuration.getBoolean(
+            "silentValkyries",
+            "aether",
+            false,
+            "Removes Valkyrie dialogue and the Valkyrie Queen's interaction UI");
+
+        nerfSentryBoots = configuration.getBoolean(
+            "nerfSentryBoots",
+            "aether",
+            false,
+            "Makes the Sentry Boots have iron level durability and defence");
+
+        moasDropEggs = configuration
+            .getBoolean("moasDropEggs", "aether", false, "Whether Moas will drop their eggs like chickens or not");
+
+        lessGoldenAmberDrops = configuration.getBoolean(
+            "lessGoldenAmberDrops",
+            "aether",
+            true,
+            "Makes golden amber logs drop less amber. Also removes the requirement to use an Aether tool to get the amber");
+
+        ambrosiumStackSize = configuration
+            .getInt("ambrosiumStackSize", "aether", 8, 0, 64, "Changes Ambrosium's maximum stack size");
+
+        replaceAetherMimic = configuration.getBoolean(
+            "replaceAetherMimic",
+            "aether",
+            false,
+            "Replaces the Aether's mimic mob with the mimic added by Primitive Mobs. Requires the Primitive Mobs mod, of course");
+
+        gravititeOreSize = configuration.getInt("gravititeOreSize", "aetherOreGen", 6, 0, Integer.MAX_VALUE, "");
+        gravititeOreChance = configuration.getInt("gravititeOreChance", "aetherOreGen", 8, 0, Integer.MAX_VALUE, "");
+        gravititeOreMaxY = configuration.getInt("gravititeOreMaxY", "aetherOreGen", 32, 0, Integer.MAX_VALUE, "");
+        zaniteOreChance = configuration.getInt("zaniteOreChance", "aetherOreGen", 12, 0, Integer.MAX_VALUE, "");
+        zaniteOreSize = configuration.getInt("zaniteOreSize", "aetherOreGen", 8, 0, Integer.MAX_VALUE, "");
+        zaniteOreMaxY = configuration.getInt("zaniteOreMaxY", "aetherOreGen", 64, 0, Integer.MAX_VALUE, "");
+        ambrosiumOreChance = configuration.getInt("ambrosiumOreChance", "aetherOreGen", 15, 0, Integer.MAX_VALUE, "");
+        ambrosiumOreSize = configuration.getInt("ambrosiumOreSize", "aetherOreGen", 16, 0, Integer.MAX_VALUE, "");
+        ambrosiumOreMaxY = configuration.getInt("ambrosiumOreMaxY", "aetherOreGen", 128, 0, Integer.MAX_VALUE, "");
+        icestoneChance = configuration.getInt("icestoneChance", "aetherOreGen", 10, 0, Integer.MAX_VALUE, "");
+        icestoneSize = configuration.getInt("icestoneSize", "aetherOreGen", 16, 0, Integer.MAX_VALUE, "");
+        icestoneMaxY = configuration.getInt("icestoneMaxY", "aetherOreGen", 128, 0, Integer.MAX_VALUE, "");
 
         gogglesOfRevealingBauble = configuration.getBoolean(
             "gogglesOfRevealingBauble",
-            "modded",
-            true,
-            "Makes the Goggles of Revealing from TC4 wearable as a bauble");
+            "thaumcraft",
+            false,
+            "Makes the Goggles of Revealing from TC4 wearable as a bauble. Requires Baubles Expanded");
 
         taintedTrees = configuration.getBoolean(
             "taintedTrees",
-            "modded",
+            "thaumcraft",
             true,
             "Enables the generation of tainted trees in the Tainted Lands biome, as well as the Tainted Log block");
 
         nodeOreInfusion = configuration.getBoolean(
             "nodeOreInfusion",
-            "modded",
+            "thaumcraft",
             true,
             "Makes aura nodes 'infuse' stone blocks in a 3 block radius with an aspect");
 
+        thaumometerIgnoresItemFrame = configuration
+            .getBoolean("thaumometerIgnoresItemFrame", "thaumcraft", true, "Makes the Thaumometer ignore item frames");
+
+        overworldOnlyGreatwood = configuration.getBoolean(
+            "overworldOnlyGreatwood",
+            "thaumcraft",
+            true,
+            "Limits greatwood tree generation to the overworld");
+
+        removeHarnessModel = configuration
+            .getBoolean("removeHarnessModel", "thaumcraft", false, "Removes the Thaumostatic Harness' .obj model");
+
+        infernalFurnaceSteel = configuration.getBoolean(
+            "infernalFurnaceSteel",
+            "thaumcraft",
+            true,
+            "Allows the Infernal Furnace to smelt iron ingots into Railcraft's steel ingots. Requires Railcraft");
+
+        greatwoodBiomeIDBlacklist = configuration.getStringList(
+            "nodeOreInfusion",
+            "thaumcraft",
+            greatwoodBiomeIDBlacklist,
+            "A list of biome IDs where greatwood trees will not generate");
+
+        overworldOnlyDimensionalDoors = configuration.getBoolean(
+            "overworldOnlyDimensionalDoors",
+            "dimdoors",
+            true,
+            "Limits Dimensional Door gateway generation to the overworld");
+
+        rocketCreeperRainSpawn = configuration.getBoolean(
+            "rocketCreeperRainSpawn",
+            "primitivemobs",
+            false,
+            "Makes it so Rocket Creepers can only spawn when it's raining");
+
+        overworldOnlyPrimitiveMonsters = configuration.getBoolean(
+            "overworldOnlyPrimitiveMonsters",
+            "primitivemobs",
+            true,
+            "Limits Primitive Mobs' monsters spawning to the overworld");
+
+        removePrimitiveMobsAchievements = configuration.getBoolean(
+            "removePrimitiveMobsAchievements",
+            "primitivemobs",
+            false,
+            "Removes Primitive Mobs' achievements page");
+
         removeHammerzTorchPlacing = configuration.getBoolean(
             "removeHammerzTorchPlacing",
-            "modded",
+            "hammerz",
             true,
             "Removes the torch placing functionality from HammerZ's hammers");
+
+        shearNetherRoots = configuration.getBoolean(
+            "shearNetherRoots",
+            "etfuturum",
+            true,
+            "Makes it so the Crimson Forest's and the Warped Forest's fungal roots need shears to be dropped, just like grass");
 
         if (configuration.hasChanged()) {
             configuration.save();
