@@ -1,4 +1,4 @@
-package henrykado.gaiablossom.mixin.late;
+package henrykado.gaiablossom.mixin.late.battletowers;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.world.World;

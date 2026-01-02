@@ -2,8 +2,6 @@ package henrykado.gaiablossom.asm;
 
 import net.minecraft.launchwrapper.IClassTransformer;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Type;
@@ -23,7 +21,7 @@ import thaumcraft.common.items.armor.ItemGoggles;
 
 public class ClassTransformer implements IClassTransformer {
 
-    static Logger LOGGER = LogManager.getLogger("gaiablossom");
+    // static Logger LOGGER = LogManager.getLogger("gaiablossom");
 
     @Override
     public byte[] transform(String name, String transformedName, byte[] basicClass) {
@@ -66,23 +64,6 @@ public class ClassTransformer implements IClassTransformer {
 
                 return writeClass(classNode);
             }
-            /*
-             * case "com.gildedgames.the_aether.entities.EntitiesAether" -> {
-             * ClassNode classNode = new ClassNode();
-             * new ClassReader(basicClass).accept(classNode, ClassReader.SKIP_FRAMES);
-             * for (MethodNode method : classNode.methods) {
-             * if (method.name.equals("initialization")) {
-             * for (AbstractInsnNode node : method.instructions.toArray()) {
-             * tryReplaceInstance(
-             * node,
-             * Type.getInternalName(EntityValkyrieQueen.class),
-             * Type.getInternalName(NewEntityValkyrieQueen.class));
-             * }
-             * }
-             * }
-             * return writeClass(classNode);
-             * }
-             */
             case "thaumcraft.common.config.ConfigItems" -> {
                 if (!Config.gogglesOfRevealingBauble) break;
                 ClassNode classNode = new ClassNode();
@@ -103,17 +84,16 @@ public class ClassTransformer implements IClassTransformer {
                 return writeClass(classNode);
             }
             /*
-             * case "net.minecraft.client.gui.achievement.GuiAchievements" -> {
+             * case "com.gildedgames.the_aether.entities.EntitiesAether" -> {
              * ClassNode classNode = new ClassNode();
              * new ClassReader(basicClass).accept(classNode, ClassReader.SKIP_FRAMES);
              * for (MethodNode method : classNode.methods) {
-             * if (method.name.equals("func_146552_b")) {
+             * if (method.name.equals("initialization")) {
              * for (AbstractInsnNode node : method.instructions.toArray()) {
-             * if (node instanceof LdcInsnNode ldcNode && ldcNode.cst.equals(0.75F)) {
-             * // mofify green value of unlocked achievement
-             * method.instructions.remove(node.getNext().getNext().getNext());
-             * method.instructions.insert(node.getNext().getNext(), new LdcInsnNode(0.9F));
-             * }
+             * tryReplaceInstance(
+             * node,
+             * Type.getInternalName(EntityValkyrieQueen.class),
+             * Type.getInternalName(NewEntityValkyrieQueen.class));
              * }
              * }
              * }

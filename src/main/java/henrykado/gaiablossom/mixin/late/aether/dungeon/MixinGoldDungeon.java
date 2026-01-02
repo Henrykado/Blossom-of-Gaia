@@ -1,20 +1,24 @@
-package henrykado.gaiablossom.mixin.late.aether.dun;
-
-import com.gildedgames.the_aether.items.ItemsAether;
-import net.minecraft.item.ItemStack;
-import org.spongepowered.asm.mixin.Mixin;
-
-import com.gildedgames.the_aether.world.gen.components.ComponentGoldenDungeon;
+package henrykado.gaiablossom.mixin.late.aether.dungeon;
 
 import java.util.Random;
 
+import net.minecraft.item.ItemStack;
+
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
+
+import com.gildedgames.the_aether.items.ItemsAether;
+import com.gildedgames.the_aether.world.gen.components.ComponentGoldenDungeon;
+
 @Mixin(ComponentGoldenDungeon.class)
 public class MixinGoldDungeon {
+
     /**
      * @author
      * @reason
      */
-    private static ItemStack getGoldLoot(Random random) {
+    @Overwrite(remap = false)
+    public static ItemStack getGoldLoot(Random random) {
         int item = random.nextInt(10);
         switch (item) {
             case 0:

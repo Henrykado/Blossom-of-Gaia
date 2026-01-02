@@ -9,8 +9,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.MapData;
 
-import henrykado.gaiablossom.common.item.ModItems;
-
 public class EntityGlassItemFrame extends EntityItemFrame {
 
     public EntityGlassItemFrame(World p_i1590_1_) {
@@ -35,7 +33,7 @@ public class EntityGlassItemFrame extends EntityItemFrame {
         }
 
         if (p_146065_2_) {
-            this.entityDropItem(new ItemStack(ModItems.glass_item_frame), 0.0F);
+            // this.entityDropItem(new ItemStack(ModItems.glass_item_frame), 0.0F);
         }
 
         if (itemstack != null) {

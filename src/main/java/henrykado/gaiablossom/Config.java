@@ -46,7 +46,7 @@ public class Config {
     public static boolean aerbunnyAetherOnly = true;
     public static boolean aerbunnySmokeParticles = false;
     public static boolean silentValkyries = false;
-    public static boolean tweakedAetherLoot = true;
+    public static boolean tweakedAetherLoot = false;
     public static boolean nerfSentryBoots = false;
     public static boolean moasDropEggs = false;
     public static boolean lessGoldenAmberDrops = true;
@@ -244,8 +244,11 @@ public class Config {
             Integer.MAX_VALUE,
             "How many extra items will Bt's golem drop (random amount from 0 to this value)");
 
-        tweakedAetherLoot = configuration
-            .getBoolean("tweakedAetherLoot", "aether", false, "Requires my fork of Botania to work. Made for my modpack");
+        tweakedAetherLoot = configuration.getBoolean(
+            "tweakedAetherLoot",
+            "aether",
+            false,
+            "Requires my fork of Botania to work. Made for my modpack");
 
         aetherBaubles = configuration
             .getBoolean("aetherBaubles", "aether", true, "Replace Aether's accessories system with Baubles");

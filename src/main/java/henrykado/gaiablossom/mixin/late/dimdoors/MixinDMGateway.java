@@ -1,4 +1,4 @@
-package henrykado.gaiablossom.mixin.late;
+package henrykado.gaiablossom.mixin.late.dimdoors;
 
 import org.dimdev.dimdoors.config.DimensionFilter;
 import org.dimdev.dimdoors.world.gateways.GatewayGenerator;

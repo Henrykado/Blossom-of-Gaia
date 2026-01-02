@@ -1,4 +1,4 @@
-package henrykado.gaiablossom.mixin.late;
+package henrykado.gaiablossom.mixin.late.botania;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

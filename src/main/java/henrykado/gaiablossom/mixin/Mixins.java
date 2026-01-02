@@ -16,6 +16,7 @@ public enum Mixins {
 
     CONSTANT_TEMPT(Phase.EARLY, Side.BOTH, "entity.MixinEntityAITempt"),
     MIXIN_PLAYER(Phase.EARLY, Side.BOTH, "entity.MixinEntityPlayer"),
+    SKELETON_LOWERSARMS(Phase.EARLY, Side.CLIENT, () -> Config.renderSkeletonChargingBow, "client.MixinModelSkeleton"),
     SKELETON_BETTERBOW(Phase.EARLY, Side.CLIENT, () -> Config.renderSkeletonChargingBow, "entity.MixinEntitySkeleton"),
     SKELETON_BETTERBOW_PACKET(Phase.EARLY, Side.BOTH, () -> Config.renderSkeletonChargingBow,
         "entity.MixinEntityAIArrowAttack"),
@@ -33,7 +34,7 @@ public enum Mixins {
     ITEMFRAME_BACKPORT2(Phase.EARLY, Side.CLIENT, () -> Config.itemFrame45Degrees, "itemframe.MixinRenderItemFrame"),
 
     BOTANIA_ITEMFRAME_BACKPORT3(Phase.LATE, Side.BOTH, TargetedMod.BOTANIA, () -> Config.itemFrame45Degrees,
-        "MixinCorporeaFunnel"),
+        "botania.MixinCorporeaFunnel"),
 
     AETHER_BAUBLES_INTEGRATION(Phase.LATE, Side.BOTH, TargetedMod.AETHER, () -> Config.aetherBaubles,
         "aether.MixinInventoryAccessories"),
@@ -55,11 +56,11 @@ public enum Mixins {
     AETHER_LESS_ORES(Phase.LATE, Side.BOTH, TargetedMod.AETHER, "aether.MixinAetherBiomeDecorator"),
 
     AETHER_BRONZE_LOOT(Phase.LATE, Side.BOTH, new TargetedMod[] { TargetedMod.AETHER, TargetedMod.BOTANIA },
-        () -> Config.tweakedAetherLoot, "aether.dun.MixinBronzeDungeon"),
+        () -> Config.tweakedAetherLoot, "aether.dungeon.MixinBronzeDungeon"),
     AETHER_SILVER_LOOT(Phase.LATE, Side.BOTH, new TargetedMod[] { TargetedMod.AETHER, TargetedMod.BOTANIA },
-        () -> Config.tweakedAetherLoot, "aether.dun.MixinSilverDungeon"),
+        () -> Config.tweakedAetherLoot, "aether.dungeon.MixinSilverDungeon"),
     AETHER_GOLD_LOOT(Phase.LATE, Side.BOTH, new TargetedMod[] { TargetedMod.AETHER, TargetedMod.BOTANIA },
-        () -> Config.tweakedAetherLoot, "aether.dun.MixinGoldDungeon"),
+        () -> Config.tweakedAetherLoot, "aether.dungeon.MixinGoldDungeon"),
 
     THAUMCRAFT_NODE_ORESPAWNING(Phase.LATE, Side.BOTH, TargetedMod.THAUMCRAFT, () -> Config.nodeOreInfusion,
         "thaumcraft.MixinTileNode"),
@@ -100,15 +101,19 @@ public enum Mixins {
     PMOBS_HIDEACHIEVEMENTS2(Phase.LATE, Side.BOTH, TargetedMod.PRIMITIVE_MOBS,
         () -> Config.removePrimitiveMobsAchievements, "primitive.MixinPMAchievements"),
 
-    BATTLETOWERS_BALANCEDDROPS(Phase.LATE, Side.BOTH, TargetedMod.BATTLETOWERS, "MixinBTGolem"),
-    BATTLETOWERS_REMOVEHELLTOWER(Phase.LATE, Side.BOTH, TargetedMod.BATTLETOWERS, "MixinWorldGenTower"),
-    BATTLETOWERS_OVERWORLD_GEN_ONLY(Phase.LATE, Side.BOTH, TargetedMod.BATTLETOWERS, "MixinWorldGenBTHandler"),
+    BATTLETOWERS_BALANCEDDROPS(Phase.LATE, Side.BOTH, TargetedMod.BATTLETOWERS, "battletowers.MixinBTGolem"),
+    BATTLETOWERS_REMOVEHELLTOWER(Phase.LATE, Side.BOTH, TargetedMod.BATTLETOWERS, "battletowers.MixinWorldGenTower"),
+    BATTLETOWERS_OVERWORLD_GEN_ONLY(Phase.LATE, Side.BOTH, TargetedMod.BATTLETOWERS,
+        "battletowers.MixinWorldGenBTHandler"),
+
     ETFUTURUM_SHEARABLE_NETHER_ROOTS(Phase.LATE, Side.BOTH, TargetedMod.ETFUTURUM, () -> Config.shearNetherRoots,
-        "MixinNetherRoots"),
+        "etfuturum.MixinNetherRoots"),
+
     DIMDOORS_OVERWORLD_ONLY(Phase.LATE, Side.BOTH, TargetedMod.DIMDOORS, () -> Config.overworldOnlyDimensionalDoors,
-        "MixinDMGateway"),
+        "dimdoors.MixinDMGateway"),
+
     HAMMERZ_REMOVETORCHTHINGY(Phase.LATE, Side.BOTH, TargetedMod.HAMMERZ, () -> Config.removeHammerzTorchPlacing,
-        "MixinHammer");
+        "hammerz.MixinHammer");
 
     private final List<String> mixinClasses;
     private final Phase phase;

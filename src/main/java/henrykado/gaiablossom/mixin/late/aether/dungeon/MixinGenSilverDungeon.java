@@ -1,4 +1,4 @@
-package henrykado.gaiablossom.mixin.late.aether.dun;
+package henrykado.gaiablossom.mixin.late.aether.dungeon;
 
 import org.spongepowered.asm.mixin.Mixin;
 
